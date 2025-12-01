@@ -1,0 +1,1 @@
+# esp32c6-cn-package
