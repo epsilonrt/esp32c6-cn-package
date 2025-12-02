@@ -1,0 +1,23 @@
+{
+  "packages": [
+    {
+      "name": "esp32c6-cn-package",
+      "maintainer": "epsilonrt",
+      "websiteURL": "https://github.com/epsilonrt/esp32c6-cn-package",
+      "platforms": [
+        {
+          "name": "ESP32-C6 CN Boards",
+          "architecture": "esp32",
+          "version": "0.9.0",
+          "category": "Contributed",
+          "url": "https://github.com/epsilonrt/esp32c6-cn-package/archive/refs/tags/0.9.0.zip",
+          "archiveFileName": "esp32c6-cn-package-0.9.0.zip",
+          "boards": [
+            { "name": "Waveshare ESP32-C6 Zero" },
+            { "name": "MakerGo ESP32-C6 SuperMini" }
+          ]
+        }
+      ]
+    }
+  ]
+}
