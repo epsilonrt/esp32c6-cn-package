@@ -1,0 +1,41 @@
+name: Build package index
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  generate-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Get release info
+        id: release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            return {
+              tag: context.payload.release.tag_name,
+              url: context.payload.release.assets[0].browser_download_url
+            }
+
+      - name: Download release zip
+        run: curl -L ${{ steps.release.outputs.url }} -o release.zip
+
+      - name: Compute SHA256
+        id: sha
+        run: echo "sha=$(sha256sum release.zip | cut -d ' ' -f1)" >> $GITHUB_OUTPUT
+
+      - name: Generate package_index.json
+        run: |
+          sed "s|@RELEASE_VERSION@|${{ steps.release.outputs.tag }}|g; \
+               s|@URL@|${{ steps.release.outputs.url }}|g; \
+               s|@SHA-256@|${{ steps.sha.outputs.sha }}|g" \
+               package_template.json > package_index.json
+
+      - name: Upload package_index.json to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: package_index.json

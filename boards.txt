@@ -1,7 +1,7 @@
 
 ##############################################################
 
-waveshare_esp32_c6_zero.name=Waveshare ESP32-C6-Zero
+waveshare_esp32_c6_zero.name=Waveshare ESP32-C6 Zero
 
 waveshare_esp32_c6_zero.bootloader.tool=esptool_py
 waveshare_esp32_c6_zero.bootloader.tool.default=esptool_py
@@ -208,7 +208,7 @@ waveshare_esp32_c6_zero.menu.ZigbeeMode.zczr_debug.build.zigbee_libs=-lesp_zb_ap
 
 ##############################################################
 
-makergo_c6_supermini.name=Waveshare ESP32-C6-Zero
+makergo_c6_supermini.name=MakerGO ESP32 C6 SuperMini
 
 makergo_c6_supermini.bootloader.tool=esptool_py
 makergo_c6_supermini.bootloader.tool.default=esptool_py
