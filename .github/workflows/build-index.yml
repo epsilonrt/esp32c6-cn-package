@@ -66,6 +66,9 @@ jobs:
             esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip
             package_esp32c6_cn_index.json
 
+      - name: Save JSON artifact
+        run: cp package_esp32c6_cn_index.json /tmp/package_esp32c6_cn_index.json
+
       - name: Push latest JSON to gh-pages
         run: |
           git config --global user.name "github-actions"
@@ -73,10 +76,8 @@ jobs:
           git fetch origin gh-pages || true
           git checkout --orphan gh-pages
           git reset --hard
-          mkdir tmp
-          mv package_esp32c6_cn_index.json tmp/
           rm -rf *
-          mv tmp/package_esp32c6_cn_index.json .
+          cp /tmp/package_esp32c6_cn_index.json .
           git add package_esp32c6_cn_index.json
           git commit -m "Update latest package index for ${{ steps.vars.outputs.tag }}" || echo "No changes to commit"
           git push -f origin gh-pages
