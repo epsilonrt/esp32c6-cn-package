@@ -18,7 +18,7 @@ jobs:
           script: |
             return {
               tag: context.payload.release.tag_name,
-              url: context.payload.release.assets[0].browser_download_url
+              url: context.payload.release.zipball_url
             }
 
       - name: Download release zip
