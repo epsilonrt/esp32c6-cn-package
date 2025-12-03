@@ -42,9 +42,9 @@ jobs:
           unzip release.zip -d src
           ROOT=$(ls src)
           mkdir clean
-          cp -r src/$ROOT/hardware clean/
+          cp -r src/$ROOT/package/* clean/
           cd clean
-          zip -r ../esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip hardware
+          zip -r ../esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip *
 
       - name: Compute SHA256
         id: sha
