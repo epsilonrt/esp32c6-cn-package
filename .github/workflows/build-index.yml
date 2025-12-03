@@ -73,7 +73,10 @@ jobs:
           git fetch origin gh-pages || true
           git checkout --orphan gh-pages
           git reset --hard
+          mkdir tmp
+          mv package_esp32c6_cn_index.json tmp/
           rm -rf *
+          mv tmp/package_esp32c6_cn_index.json .
           git add package_esp32c6_cn_index.json
           git commit -m "Update latest package index for ${{ steps.vars.outputs.tag }}" || echo "No changes to commit"
           git push -f origin gh-pages
