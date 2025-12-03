@@ -28,6 +28,11 @@ jobs:
             echo "url=${{ github.event.release.zipball_url }}" >> $GITHUB_OUTPUT
           fi
 
+      - name: Debug tag and URL
+        run: |
+          echo "Using tag: ${{ steps.vars.outputs.tag }}"
+          echo "Using URL: ${{ steps.vars.outputs.url }}"
+
       - name: Download release zip
         run: curl -L ${{ steps.vars.outputs.url }} -o release.zip
 
@@ -55,6 +60,8 @@ jobs:
       - name: Upload assets to release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.vars.outputs.tag }}
+          name: "Release ${{ steps.vars.outputs.tag }}"
           files: |
             esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip
             package_esp32c6_cn_index.json
