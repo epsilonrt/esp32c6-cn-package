@@ -16,10 +16,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            return {
-              tag: context.payload.release.tag_name,
-              url: context.payload.release.zipball_url
-            }
+            core.setOutput('tag', context.payload.release.tag_name)
+            core.setOutput('url', context.payload.release.zipball_url)
 
       - name: Download release zip
         run: curl -L ${{ steps.release.outputs.url }} -o release.zip
