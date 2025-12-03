@@ -17,37 +17,38 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Get release info
-        id: release
-        uses: actions/github-script@v6
-        with:
-          script: |
-            core.setOutput('tag', context.payload.release.tag_name)
-            core.setOutput('url', context.payload.release.zipball_url)
+      - name: Set tag and URL
+        id: vars
+        run: |
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            echo "tag=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
+            echo "url=https://github.com/${{ github.repository }}/archive/refs/tags/${{ github.event.inputs.tag }}.zip" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+            echo "url=${{ github.event.release.zipball_url }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Download release zip
-        run: curl -L ${{ steps.release.outputs.url }} -o release.zip
+        run: curl -L ${{ steps.vars.outputs.url }} -o release.zip
 
       - name: Extract and clean zip
         run: |
           mkdir src
           unzip release.zip -d src
-          # GitHub auto-generated zip contains a dynamic folder name (repo-commit)
           ROOT=$(ls src)
           mkdir clean
           cp -r src/$ROOT/hardware clean/
           cd clean
-          # Recreate a clean zip with only hardware/
-          zip -r ../esp32c6-cn-package-${{ steps.release.outputs.tag }}.zip hardware
+          zip -r ../esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip hardware
 
       - name: Compute SHA256
         id: sha
-        run: echo "sha=$(sha256sum esp32c6-cn-package-${{ steps.release.outputs.tag }}.zip | cut -d ' ' -f1)" >> $GITHUB_OUTPUT
+        run: echo "sha=$(sha256sum esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip | cut -d ' ' -f1)" >> $GITHUB_OUTPUT
 
       - name: Generate package_esp32c6_cn_index.json
         run: |
-          sed "s|@RELEASE_VERSION@|${{ steps.release.outputs.tag }}|g; \
-               s|@URL@|https://github.com/${{ github.repository }}/releases/download/${{ steps.release.outputs.tag }}/esp32c6-cn-package-${{ steps.release.outputs.tag }}.zip|g; \
+          sed "s|@RELEASE_VERSION@|${{ steps.vars.outputs.tag }}|g; \
+               s|@URL@|https://github.com/${{ github.repository }}/releases/download/${{ steps.vars.outputs.tag }}/esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip|g; \
                s|@SHA-256@|${{ steps.sha.outputs.sha }}|g" \
                package_template.json > package_esp32c6_cn_index.json
 
@@ -55,7 +56,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            esp32c6-cn-package-${{ steps.release.outputs.tag }}.zip
+            esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip
             package_esp32c6_cn_index.json
 
       - name: Push latest JSON to gh-pages
@@ -66,5 +67,5 @@ jobs:
           git checkout gh-pages || git checkout --orphan gh-pages
           git pull origin gh-pages || true
           git add package_esp32c6_cn_index.json
-          git commit -m "Update latest package index for ${{ steps.release.outputs.tag }}" || echo "No changes to commit"
+          git commit -m "Update latest package index for ${{ steps.vars.outputs.tag }}" || echo "No changes to commit"
           git push origin gh-pages
