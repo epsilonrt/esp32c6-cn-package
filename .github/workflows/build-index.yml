@@ -61,19 +61,19 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.vars.outputs.tag }}
-          name: "Release ${{ steps.vars.outputs.tag }}"
+          name: Release ${{ steps.vars.outputs.tag }}
           files: |
             esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip
             package_esp32c6_cn_index.json
 
-        - name: Push latest JSON to gh-pages
-          run: |
-            git config --global user.name "github-actions"
-            git config --global user.email "github-actions@github.com"
-            git fetch origin gh-pages || true
-            git checkout --orphan gh-pages
-            git reset --hard
-            rm -rf *
-            git add package_esp32c6_cn_index.json
-            git commit -m "Update latest package index for ${{ steps.vars.outputs.tag }}" || echo "No changes to commit"
-            git push -f origin gh-pages
+      - name: Push latest JSON to gh-pages
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git fetch origin gh-pages || true
+          git checkout --orphan gh-pages
+          git reset --hard
+          rm -rf *
+          git add package_esp32c6_cn_index.json
+          git commit -m "Update latest package index for ${{ steps.vars.outputs.tag }}" || echo "No changes to commit"
+          git push -f origin gh-pages
