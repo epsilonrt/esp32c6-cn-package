@@ -40,9 +40,9 @@ waveshare_esp32_c6_zero.serial.disableRTS=false
 
 # Build configuration
 waveshare_esp32_c6_zero.build.mcu=esp32c6
-waveshare_esp32_c6_zero.build.core=esp32:esp32   # Use Espressif ESP32 core
-waveshare_esp32_c6_zero.build.variant=waveshare_esp32_c6_zero  # Must match folder in variants/
-waveshare_esp32_c6_zero.build.board=ESP32C6_DEV  # Internal board identifier
+waveshare_esp32_c6_zero.build.core=esp32:esp32
+waveshare_esp32_c6_zero.build.variant=waveshare_esp32_c6_zero
+waveshare_esp32_c6_zero.build.board=ESP32C6_DEV
 
 # CPU and flash settings
 waveshare_esp32_c6_zero.build.cdc_on_boot=0
@@ -252,9 +252,9 @@ makergo_c6_supermini.serial.disableRTS=false
 
 # Build configuration
 makergo_c6_supermini.build.mcu=esp32c6
-makergo_c6_supermini.build.core=esp32:esp32   # Use Espressif ESP32 core
-makergo_c6_supermini.build.variant=makergo_c6_supermini  # Must match folder in variants/
-makergo_c6_supermini.build.board=ESP32C6_DEV  # Internal board identifier
+makergo_c6_supermini.build.core=esp32:esp32
+makergo_c6_supermini.build.variant=makergo_c6_supermini
+makergo_c6_supermini.build.board=ESP32C6_DEV
 
 # CPU and flash settings
 makergo_c6_supermini.build.cdc_on_boot=0
