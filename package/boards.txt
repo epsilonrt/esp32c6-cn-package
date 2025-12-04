@@ -1,3 +1,14 @@
+menu.JTAGAdapter=JTAG Adapter
+menu.CDCOnBoot=CDC On Boot
+menu.PartitionScheme=Partition Scheme
+menu.CPUFreq=CPU Frequency
+menu.FlashMode=Flash Mode
+menu.FlashFreq=Flash Frequency
+menu.FlashSize=Flash Size
+menu.UploadSpeed=Upload Speed
+menu.DebugLevel=Debug Level
+menu.EraseFlash=Erase Flash
+menu.ZigbeeMode=Zigbee Mode
 
 ##############################################################
 
