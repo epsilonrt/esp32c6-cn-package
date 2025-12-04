@@ -36,26 +36,31 @@ jobs:
       - name: Download release zip
         run: curl -L ${{ steps.vars.outputs.url }} -o release.zip
 
-      - name: Extract and clean zip
+      - name: Extract and prepare root folder
         run: |
           mkdir src
           unzip release.zip -d src
-          ROOT=$(ls src)
-          mkdir clean
-          cp -r src/$ROOT/package/* clean/
-          cd clean
-          zip -r ../esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip *
+          ROOT=$(basename $(find src -mindepth 1 -maxdepth 1 -type d))
+          VERSION=${{ steps.vars.outputs.tag }}
+          OUTROOT="esp32c6-cn-package-$VERSION"
+          mkdir -p "$OUTROOT"
+          cp -r "src/$ROOT/package/*" "$OUTROOT/"
+          zip -X -r "esp32c6-cn-package-$VERSION.zip" "$OUTROOT"
 
-      - name: Compute SHA256
-        id: sha
-        run: echo "sha=$(sha256sum esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip | cut -d ' ' -f1)" >> $GITHUB_OUTPUT
+      - name: Compute SHA256 and size
+        id: fileinfo
+        run: |
+          FILE="esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip"
+          echo "sha=$(sha256sum "$FILE" | cut -d ' ' -f1)" >> $GITHUB_OUTPUT
+          echo "size=$(stat -c%s "$FILE")" >> $GITHUB_OUTPUT
 
       - name: Generate package_esp32c6_cn_index.json
         run: |
           sed "s|@RELEASE_VERSION@|${{ steps.vars.outputs.tag }}|g; \
-               s|@URL@|https://github.com/${{ github.repository }}/releases/download/${{ steps.vars.outputs.tag }}/esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip|g; \
-               s|@SHA-256@|${{ steps.sha.outputs.sha }}|g" \
-               package_template.json > package_esp32c6_cn_index.json
+              s|@URL@|https://github.com/${{ github.repository }}/releases/download/${{ steps.vars.outputs.tag }}/esp32c6-cn-package-${{ steps.vars.outputs.tag }}.zip|g; \
+              s|@SHA-256@|${{ steps.fileinfo.outputs.sha }}|g; \
+              s|@SIZE@|${{ steps.fileinfo.outputs.size }}|g" \
+              package_template.json > package_esp32c6_cn_index.json
 
       - name: Upload assets to release
         uses: softprops/action-gh-release@v1
