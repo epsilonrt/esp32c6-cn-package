@@ -12,33 +12,39 @@ menu.ZigbeeMode=Zigbee Mode
 
 ##############################################################
 
+# Board name shown in Arduino IDE
 waveshare_esp32_c6_zero.name=Waveshare ESP32-C6 Zero
 
+# Bootloader tool configuration
 waveshare_esp32_c6_zero.bootloader.tool=esptool_py
 waveshare_esp32_c6_zero.bootloader.tool.default=esptool_py
 
+# Upload tools (serial and OTA)
 waveshare_esp32_c6_zero.upload.tool=esptool_py
 waveshare_esp32_c6_zero.upload.tool.default=esptool_py
 waveshare_esp32_c6_zero.upload.tool.network=esp_ota
 
+# Maximum flash and RAM sizes
 waveshare_esp32_c6_zero.upload.maximum_size=1310720
 waveshare_esp32_c6_zero.upload.maximum_data_size=327680
+
+# Upload flags (optional, usually empty)
 waveshare_esp32_c6_zero.upload.flags=
 waveshare_esp32_c6_zero.upload.extra_flags=
 waveshare_esp32_c6_zero.upload.use_1200bps_touch=false
 waveshare_esp32_c6_zero.upload.wait_for_upload_port=false
 
+# Serial port configuration
 waveshare_esp32_c6_zero.serial.disableDTR=false
 waveshare_esp32_c6_zero.serial.disableRTS=false
 
-waveshare_esp32_c6_zero.build.tarch=riscv32
-waveshare_esp32_c6_zero.build.target=esp
+# Build configuration
 waveshare_esp32_c6_zero.build.mcu=esp32c6
-waveshare_esp32_c6_zero.build.core=esp32
-waveshare_esp32_c6_zero.build.variant=waveshare_esp32_c6_zero
-waveshare_esp32_c6_zero.build.board=ESP32C6_DEV
-waveshare_esp32_c6_zero.build.bootloader_addr=0x0
+waveshare_esp32_c6_zero.build.core=esp32:esp32   # Use Espressif ESP32 core
+waveshare_esp32_c6_zero.build.variant=waveshare_esp32_c6_zero  # Must match folder in variants/
+waveshare_esp32_c6_zero.build.board=ESP32C6_DEV  # Internal board identifier
 
+# CPU and flash settings
 waveshare_esp32_c6_zero.build.cdc_on_boot=0
 waveshare_esp32_c6_zero.build.f_cpu=160000000L
 waveshare_esp32_c6_zero.build.flash_size=4MB
@@ -46,7 +52,6 @@ waveshare_esp32_c6_zero.build.flash_freq=80m
 waveshare_esp32_c6_zero.build.flash_mode=qio
 waveshare_esp32_c6_zero.build.boot=qio
 waveshare_esp32_c6_zero.build.partitions=default
-waveshare_esp32_c6_zero.build.defines=
 
 ## IDE 2.0 Seems to not update the value
 waveshare_esp32_c6_zero.menu.JTAGAdapter.default=Disabled
@@ -219,33 +224,39 @@ waveshare_esp32_c6_zero.menu.ZigbeeMode.zczr_debug.build.zigbee_libs=-lesp_zb_ap
 
 ##############################################################
 
+# Board name shown in Arduino IDE
 makergo_c6_supermini.name=MakerGO ESP32 C6 SuperMini
 
+# Bootloader tool configuration
 makergo_c6_supermini.bootloader.tool=esptool_py
 makergo_c6_supermini.bootloader.tool.default=esptool_py
 
+# Upload tools (serial and OTA)
 makergo_c6_supermini.upload.tool=esptool_py
 makergo_c6_supermini.upload.tool.default=esptool_py
 makergo_c6_supermini.upload.tool.network=esp_ota
 
+# Maximum flash and RAM sizes
 makergo_c6_supermini.upload.maximum_size=1310720
 makergo_c6_supermini.upload.maximum_data_size=327680
+
+# Upload flags (optional, usually empty)
 makergo_c6_supermini.upload.flags=
 makergo_c6_supermini.upload.extra_flags=
 makergo_c6_supermini.upload.use_1200bps_touch=false
 makergo_c6_supermini.upload.wait_for_upload_port=false
 
+# Serial port configuration
 makergo_c6_supermini.serial.disableDTR=false
 makergo_c6_supermini.serial.disableRTS=false
 
-makergo_c6_supermini.build.tarch=riscv32
-makergo_c6_supermini.build.target=esp
+# Build configuration
 makergo_c6_supermini.build.mcu=esp32c6
-makergo_c6_supermini.build.core=esp32
-makergo_c6_supermini.build.variant=makergo_c6_supermini
-makergo_c6_supermini.build.board=ESP32C6_DEV
-makergo_c6_supermini.build.bootloader_addr=0x0
+makergo_c6_supermini.build.core=esp32:esp32   # Use Espressif ESP32 core
+makergo_c6_supermini.build.variant=makergo_c6_supermini  # Must match folder in variants/
+makergo_c6_supermini.build.board=ESP32C6_DEV  # Internal board identifier
 
+# CPU and flash settings
 makergo_c6_supermini.build.cdc_on_boot=0
 makergo_c6_supermini.build.f_cpu=160000000L
 makergo_c6_supermini.build.flash_size=4MB
@@ -253,7 +264,6 @@ makergo_c6_supermini.build.flash_freq=80m
 makergo_c6_supermini.build.flash_mode=qio
 makergo_c6_supermini.build.boot=qio
 makergo_c6_supermini.build.partitions=default
-makergo_c6_supermini.build.defines=
 
 ## IDE 2.0 Seems to not update the value
 makergo_c6_supermini.menu.JTAGAdapter.default=Disabled
