@@ -17,6 +17,18 @@
           "boards": [
             { "name": "Waveshare ESP32-C6 Zero" },
             { "name": "MakerGo ESP32-C6 SuperMini" }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "esp32",
+              "name": "esp-rv32",
+              "version": "2507"
+            },
+            {
+              "packager": "esp32",
+              "name": "esptool_py",
+              "version": "5.1.0"
+            }
           ]
         }
       ]
