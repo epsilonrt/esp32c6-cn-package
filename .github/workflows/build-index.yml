@@ -44,7 +44,7 @@ jobs:
           VERSION=${{ steps.vars.outputs.tag }}
           OUTROOT="esp32c6-cn-package-$VERSION"
           mkdir -p "$OUTROOT"
-          cp -r "src/$ROOT/package/*" "$OUTROOT/"
+          cp -r src/$ROOT/package/* "$OUTROOT/"
           zip -X -r "esp32c6-cn-package-$VERSION.zip" "$OUTROOT"
 
       - name: Compute SHA256 and size
