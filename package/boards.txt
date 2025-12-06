@@ -36,7 +36,7 @@ waveshare_esp32_c6_zero.build.target=esp
 waveshare_esp32_c6_zero.build.mcu=esp32c6
 waveshare_esp32_c6_zero.build.core=esp32:esp32
 waveshare_esp32_c6_zero.build.variant=waveshare_esp32_c6_zero
-waveshare_esp32_c6_zero.build.board=ESP32C6_DEV
+waveshare_esp32_c6_zero.build.board=WAVESHARE_ESP32_C6_ZERO
 waveshare_esp32_c6_zero.build.bootloader_addr=0x0
 
 waveshare_esp32_c6_zero.build.cdc_on_boot=0
@@ -201,7 +201,7 @@ makergo_c6_supermini.build.target=esp
 makergo_c6_supermini.build.mcu=esp32c6
 makergo_c6_supermini.build.core=esp32:esp32
 makergo_c6_supermini.build.variant=makergo_c6_supermini
-makergo_c6_supermini.build.board=ESP32C6_DEV
+makergo_c6_supermini.build.board=MAKERGO_C6_SUPERMINI
 makergo_c6_supermini.build.bootloader_addr=0x0
 
 makergo_c6_supermini.build.cdc_on_boot=0

@@ -3,15 +3,61 @@
 
 #include <stdint.h>
 #include "soc/soc_caps.h"
+/*
+       Arduino Pin Definitions for Waveshare ESP32-C6-Zero
+  +----------------------------------------------------------------+
+  |     |         |          |  # | USB |  # |        |      |     |
+  |:---:|:-------:|:--------:|:--:|:---:|:--:|:------:|:----:|:---:|
+  |     |         |    5V    |  1 | TOP | 18 | GPIO16 |  TX  | D16 |
+  |     |         |    GND   |  2 | TOP | 17 | GPIO17 |  RX  | D17 |
+  |     |         | 3V3(OUT) |  3 | TOP | 16 | GPIO14 |  SDA | D12 |
+  |  D0 |    A0   |   GPIO0  |  4 | TOP | 15 | GPIO15 |  SCL | D11 |
+  |  D1 |    A1   |   GPIO1  |  5 | TOP | 14 | GPIO18 |  SS  | D10 |
+  |  D2 |    A2   |   GPIO2  |  6 | TOP | 13 | GPIO19 | MOSI |  D9 |
+  |  D3 |    A3   |   GPIO3  |  7 | TOP | 12 | GPIO20 | MISO |  D8 |
+  |  D4 |    A4   |   GPIO4  |  8 | TOP | 11 | GPIO21 |  SCK |  D7 |
+  |  D5 |    A5   |   GPIO5  |  9 | TOP | 10 | GPIO22 |      |  D6 |
+  +----------------------------------------------------------------+
 
-#define PIN_RGB_LED 8
+  +----------------------------------------------------------------+
+  |     |         |          |  # | USB |  # |        |      |     |
+  |:---:|:-------:|:--------:|:--:|:---:|:--:|:------:|:----:|:---:|
+  |     |         |          |    | BOT |    |        |      |     |
+  |     |         |          |    | BOT |    |        |      |     |
+  | D21 |         |  GPIO13  | 19 | BOT |    |        |      |     |
+  | D20 |         |  GPIO12  | 20 | BOT |    |        |      |     |
+  | D19 |         |  GPIO23  | 21 | BOT |    |        |      |     |
+  | D18 |   BOOT  |   GPIO9  | 22 | BOT |    |        |      |     |
+  | D13 | RGB_LED |   GPIO8  | 23 | BOT |    |        |      |     |
+  | D15 |         |   GPIO7  | 24 | BOT |    |        |      |     |
+  | D14 |    A6   |   GPIO6  | 25 | BOT |    |        |      |     |
+  +----------------------------------------------------------------+
+*/
+// The built-in RGB LED is connected to this pin
+static const uint8_t PIN_RGB_LED = 8;
+#define PIN_RGB_LED PIN_RGB_LED // allow testing #ifdef PIN_RGB_LED
+
 // BUILTIN_LED can be used in new Arduino API digitalWrite() like in Blink.ino
-static const uint8_t LED_BUILTIN = SOC_GPIO_PIN_COUNT + PIN_RGB_LED;
-#define BUILTIN_LED LED_BUILTIN  // backward compatibility
+// but also used in new Arduino API rgbLedWrite()
+static const uint8_t RGB_BUILTIN = SOC_GPIO_PIN_COUNT + PIN_RGB_LED;
+#define RGB_BUILTIN RGB_BUILTIN  // allow testing #ifdef RGB_BUILTIN
+
+// Define default brightness for the built-in RGB LED
+#define RGB_BRIGHTNESS 32 // default brightness level (0-255)
+
+// Define the color order for the built-in RGB LED
+// Possible values:
+// LED_COLOR_ORDER_RGB
+// LED_COLOR_ORDER_BGR
+// LED_COLOR_ORDER_BRG
+// LED_COLOR_ORDER_RBG
+// LED_COLOR_ORDER_GBR
+// LED_COLOR_ORDER_GRB
+#define RGB_BUILTIN_LED_COLOR_ORDER LED_COLOR_ORDER_RGB  // default WS2812B color order
+
+// Define the built-in as LED pin (RGB LED) to use with digitalWrite()
+static const uint8_t LED_BUILTIN = RGB_BUILTIN;
 #define LED_BUILTIN LED_BUILTIN  // allow testing #ifdef LED_BUILTIN
-// RGB_BUILTIN and RGB_BRIGHTNESS can be used in new Arduino API rgbLedWrite()
-#define RGB_BUILTIN    LED_BUILTIN
-#define RGB_BRIGHTNESS 64
 
 static const uint8_t TX = 16;
 static const uint8_t RX = 17;
@@ -59,5 +105,8 @@ static const uint8_t D21 = 13;
 #define WIRE1_PIN_DEFINED
 static const uint8_t SDA1 = 6;
 static const uint8_t SCL1 = 7;
+
+#define BUILTIN_LED LED_BUILTIN  // backward compatibility
+#define BUILTIN_RGB RGB_BUILTIN  // backward compatibility
 
 #endif /* Pins_Arduino_h */

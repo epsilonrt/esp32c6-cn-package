@@ -4,11 +4,31 @@
 
 #include <stdint.h>
 #include "soc/soc_caps.h"
-
-// Define the built-in LED pin (blue LED)
-static const uint8_t LED_BUILTIN = 15;
-#define LED_BUILTIN LED_BUILTIN  // allow testing #ifdef LED_BUILTIN
-
+/*
+                Arduino Pin Definitions for MakerGo C6 SuperMini
+  +-----------------------------------------------------------------------------+
+  |     |         |        |  # |    | USB |    |  # |          |         |     |
+  |:---:|:-------:|:------:|:--:|:--:|:---:|:--:|:--:|:--------:|:-------:|:---:|
+  | D16 |    TX   | GPIO16 |  1 |    | TOP |    | 20 |    5V    |         |     |
+  | D17 |    RX   | GPIO17 |  2 |    |     |    | 19 |    GND   |         |     |
+  |  D0 |    A0   |  GPIO0 |  3 |    |     |    | 18 | 3V3(OUT) |         |     |
+  |  D1 |    A1   |  GPIO1 |  4 |    |     |    | 17 |  GPIO20  |   SDA   | D14 |
+  |  D2 |    A2   |  GPIO2 |  5 |    |     |    | 16 |  GPIO19  |   SCL   | D12 |
+  |  D3 |    A3   |  GPIO3 |  6 |    |     |    | 15 |  GPIO18  |         | D11 |
+  |  D4 |  SS/A4  |  GPIO4 |  7 |    |  21 |    | 14 |  GPIO15  |   LED   | D13 |
+  |  D5 | MOSI/A5 |  GPIO5 |  8 | 23 |  22 |    | 13 |  GPIO14  |         | D10 |
+  |  D6 | MISO/A6 |  GPIO6 |  9 |    |     | 24 | 12 |   GPIO9  |   BOOT  |  D9 |
+  |  D7 |   SCK   |  GPIO7 | 10 |    |     | 25 | 11 |   GPIO8  | RGB_LED |  D8 |
+  |     |         |        |    |    |  ↑  |    |    |          |         |     |
+  +-----------------------------------  |  -------------------------------------+
+                                        |
+  |     |         |        |  # |    |  |  |    |  # |          |         |     |
+  |:---:|:-------:|:------:|:--:|:--:|:---:|:--:|:--:|:--------:|:-------:|:---:|
+  | D19 |         | GPIO21 | 21 |    |     |    |    |          |         |     |
+  | D20 |         | GPIO22 | 22 |    |     |    | 24 |  GPIO12  |         | D15 |
+  | D21 |         | GPIO23 | 23 |    |     |    | 25 |  GPIO13  |         | D18 |
+  +-----------------------------------------------------------------------------+
+*/
 // The built-in RGB LED is connected to this pin
 static const uint8_t PIN_RGB_LED = 8;
 #define PIN_RGB_LED PIN_RGB_LED // allow testing #ifdef PIN_RGB_LED
@@ -30,6 +50,10 @@ static const uint8_t RGB_BUILTIN = SOC_GPIO_PIN_COUNT + PIN_RGB_LED;
 // LED_COLOR_ORDER_GBR
 // LED_COLOR_ORDER_GRB
 #define RGB_BUILTIN_LED_COLOR_ORDER LED_COLOR_ORDER_GRB  // default WS2812B color order
+
+// Define the built-in LED pin (blue LED)
+static const uint8_t LED_BUILTIN = 15;
+#define LED_BUILTIN LED_BUILTIN  // allow testing #ifdef LED_BUILTIN
 
 static const uint8_t TX = 16;
 static const uint8_t RX = 17;
